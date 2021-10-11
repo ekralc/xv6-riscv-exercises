@@ -134,7 +134,7 @@ UPROGS=\
 	$U/_zombie\
 	$U/_hw\
 	$U/_ex_child\
-	$U/_ex_file
+	$U/_fork_processes\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
