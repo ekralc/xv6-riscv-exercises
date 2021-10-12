@@ -1,8 +1,19 @@
+# xv6 Exercises
+
+[![wakatime](https://wakatime.com/badge/github/ekralc/xv6-riscv-exercises.svg)](https://wakatime.com/badge/github/ekralc/xv6-riscv-exercises)
+
+These are my solutions to the exercises for xv6.
+
+---
+**Original README**
+
+## About
+
 xv6 is a re-implementation of Dennis Ritchie's and Ken Thompson's Unix
 Version 6 (v6).  xv6 loosely follows the structure and style of v6,
 but is implemented for a modern RISC-V multiprocessor using ANSI C.
 
-ACKNOWLEDGMENTS
+## Acknowledgements
 
 xv6 is inspired by John Lions's Commentary on UNIX 6th Edition (Peer
 to Peer Communications; ISBN: 1-57398-013-7; 1st edition (June 14,
