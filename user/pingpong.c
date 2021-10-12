@@ -13,14 +13,13 @@ int main(int argc, char *argv[]) {
 
   if (pid != 0) {
     // get the ball rolling
-    //write(a[1], "X", 1);
+    write(a[1], "X", 1);
 
     for (;;) {
       read(b[0], buf, sizeof buf);
       printf("process %d received %s\n", getpid(), buf);
       write(a[1], buf, sizeof buf);
     }
-    
   } else {
     for (;;) {
       read(a[0], buf, sizeof buf);
