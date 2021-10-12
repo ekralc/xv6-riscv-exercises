@@ -1,53 +1,33 @@
 #include "kernel/types.h"
+#include "kernel/stat.h"
 #include "user/user.h"
 
 int main(int argc, char *argv[]) {
-  int to[2];
-  int from[2];
+  int a[2], b[2];
+  pipe(a); pipe(b);
 
-  pipe(to);
-  pipe(from);
+  int pid;
+  char buf[1];
 
-  int *printing = malloc(sizeof(int));
-  *printing = 0;
-  int pid = fork();
+  pid = fork();
 
-  if (pid > 0) {
-    char buf[1];
-
-    char yes = 'Q';
-    fprintf(to[0], &yes);
+  if (pid != 0) {
+    // get the ball rolling
+    //write(a[1], "X", 1);
 
     for (;;) {
-      read(to[1], buf, sizeof buf);
-      while (!*printing) {
-        *printing = 1;
-        printf("Received %c in parent process\n\n", buf[0]);
-        sleep(100);
-        *printing = 0;
-        break;
-      }
-      write(from[0], buf, sizeof buf);
+      read(b[0], buf, sizeof buf);
+      printf("process %d received %s\n", getpid(), buf);
+      write(a[1], buf, sizeof buf);
     }
-  } else if (pid == 0) {
-    char buf[1];
-
-    for (;;) {
-      read(from[1], buf, sizeof buf);
-      
-      while (!*printing) {
-        *printing = 1;
-        printf("Received %c in child process\n\n", buf[0]);
-        sleep(100);
-        *printing = 0;
-        break;
-      }
-      write(to[0], buf, sizeof buf);
-    }
+    
   } else {
-    printf("fork error\n");
+    for (;;) {
+      read(a[0], buf, sizeof buf);
+      printf("process %d received %s\n", getpid(), buf);
+      write(b[1], buf, sizeof buf);
+    } 
   }
 
   exit(0);
-  return 0;
 }
